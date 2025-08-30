@@ -18,8 +18,15 @@ public class Main {
                 System.out.print("Enter an alarm time (HH:MM:SS): ");
                 String inputTime = scanner.nextLine();
 
-                alarmTime = LocalTime.parse(inputTime, formatter);
-                System.out.println("Alarm set for " + alarmTime);
+                LocalTime enteredTime = LocalTime.parse(inputTime, formatter);
+
+                if (enteredTime.isBefore(LocalTime.now())) {
+                    System.out.println("The time must be in the future. Please try again.");
+                }
+                else {
+                    alarmTime = enteredTime;
+                    System.out.println("Alarm set for " + alarmTime);
+                }
             }
             catch (DateTimeParseException e) {
                 System.out.println("Invalid Format. Please use HH:MM:SS");
